@@ -4,7 +4,7 @@ import org.junit.Test;
 
 import java.util.concurrent.ConcurrentHashMap;
 
-public class ConCurrentHashMapExam extends  JavaExampleApplicationTests{
+public class ConCurrentHashMapExam extends JavaExampleApplicationTests {
 
     /**
      * 测试当concurrentHashMap没有key，然后用remove会不会报错
