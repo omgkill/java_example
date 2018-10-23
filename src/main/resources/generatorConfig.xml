@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+    <!-- 本地路径：location，
+         cokdbN:修改自己服
+         tableName修改需要执行的table -->
+    <!--
+    <classPathEntry
+        location="/Users/wuyang/Documents/workspace_hg/ClashOfKingProject/cok-game/lib/mysql-connector-java-5.1.15-bin.jar" /> -->
+    <classPathEntry
+            location="E:/MavenRepository/mysql/mysql-connector-java/5.1.47/mysql-connector-java-5.1.47.jar" />
+
+    <context id="MySQL2Tables" targetRuntime="MyBatis3"
+             defaultModelType="flat">
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                        connectionURL="jdbc:mysql://10.0.3.190:3306/hgdb1?characterEncoding=utf-8"
+                        userId="root" password="123456">
+        </jdbcConnection>
+
+        <javaTypeResolver>
+            <property name="forceBigDecimals" value="false" />
+        </javaTypeResolver>
+        <!--
+                <javaModelGenerator targetPackage="com.elex.cok.puredb.model"
+                    targetProject="cok-game/src/main/java">
+                    <property name="enableSubPackages" value="true" />
+                    <property name="trimStrings" value="true" />
+                </javaModelGenerator>
+        -->
+        <javaModelGenerator targetPackage="com.jing.java_example.model"
+                            targetProject="./src/main/java">
+            <property name="enableSubPackages" value="true" />
+            <property name="trimStrings" value="true" />
+        </javaModelGenerator>
+
+        <sqlMapGenerator targetPackage="mapper"
+                         targetProject="./src/main/resources">
+            <property name="enableSubPackages" value="true" />
+        </sqlMapGenerator>
+
+        <javaClientGenerator type="XMLMAPPER"
+                             targetPackage="com.jing.java_example.dao" targetProject="./src/main/java">
+            <property name="enableSubPackages" value="true" />
+        </javaClientGenerator>
+
+        <table schema="hgdb1" tableName="user_lucky_lotto_score"
+               enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false"
+               selectByExampleQueryId="false" />
+
+    </context>
+</generatorConfiguration>

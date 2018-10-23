@@ -1,4 +1,4 @@
-
+package com.jing.java_example;
 import org.junit.Test;
 
 public class testEnum {
