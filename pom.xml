@@ -78,7 +78,7 @@
                 <configuration>
                     <verbose>true</verbose>
                     <overwrite>true</overwrite>
-
+                    <configurationFile>./src/main/resources/generator/generatorConfig.xml</configurationFile>
                 </configuration>
             </plugin>
 		</plugins>
