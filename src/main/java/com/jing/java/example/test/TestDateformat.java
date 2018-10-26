@@ -1,4 +1,4 @@
-package com.jing.java_example;
+package com.jing.java.example.test;
 
 import org.junit.Test;
 

@@ -1,4 +1,4 @@
-package com.jing.java_example;
+package com.jing.java.example;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
