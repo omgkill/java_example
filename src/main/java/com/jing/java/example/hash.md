@@ -1,3 +1,4 @@
+
  # 简单介绍hash
  ### 1、hash是什么
  ### 2、hash与equal的关系
@@ -43,10 +44,17 @@
      private int age;
      private String name;
      public int hashCode() {
-         int 
-     
+         int result = 17;
+         result = 31 * result + age;
+         result = 31 * result + name.hashCode();
+         return result;
      }
-    
- 
  }
  ```
+ - 数组
+ >  可以一个一个算，也可以直接调用Arrays.hashCode()
+ #### 问题： 为什么要用 31 这个数
+ - 使用素数减少信息丢失
+ - 用移位和减法代替乘法，性能会更好 。例子： ``` 31 * i == (i << 5) - i; ```
+ ### 4、hash冲突
+     ####
