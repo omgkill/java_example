@@ -3,8 +3,9 @@
  - kindle与ipad的比较
  - kindle设备管理
  - kindle推书
-
  - kindle词典管理
+ 
+  ![avatar](../image/1.jpeg)
  
  
  ## kindle介绍
