@@ -37,3 +37,5 @@
  ## kindle词典管理
  地址 ：https://www.douban.com/group/topic/31690870/?ref=t
  >词典很重要，一个好的词典让你对这个世界多一份理解
+ - 如何装入词典
+ ![avatar](../image/menu.saveimg.savepath20181226234927.jpg)
