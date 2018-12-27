@@ -1,7 +1,13 @@
  # kindle 使用技巧分享
  
   ![avatar](../image/1.jpeg)
-  
+  <br>
+    <br>
+      <br>
+        <br>
+          <br>
+            <br>
+        
   - kindle的介绍
   - kindle与ipad的比较
   - kindle设备管理
