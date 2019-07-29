@@ -20,5 +20,9 @@ public class ConCurrentMapTest {
         Object obj = concurrentHashMap.remove("bvc");
         System.out.println(String.valueOf(obj));
         System.out.println(concurrentHashMap.toString());
+
+        String aa = concurrentHashMap.putIfAbsent("abc", "ddd");
+        System.out.println(aa);
+        System.out.println(concurrentHashMap.get("abc"));
     }
 }

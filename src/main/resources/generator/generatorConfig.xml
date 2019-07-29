@@ -11,7 +11,7 @@
     <classPathEntry
         location="/Users/wuyang/Documents/workspace_hg/ClashOfKingProject/cok-game/lib/mysql-connector-java-5.1.15-bin.jar" /> -->
     <classPathEntry
-            location="E:/MavenRepository/mysql/mysql-connector-java/5.1.47/mysql-connector-java-5.1.47.jar" />
+            location="C:/MavenRepository/mysql/mysql-connector-java/5.1.47/mysql-connector-java-5.1.47.jar" />
 
     <context id="MySQL2Tables" targetRuntime="MyBatis3"
              defaultModelType="flat">
@@ -42,7 +42,7 @@
         </sqlMapGenerator>
 
         <javaClientGenerator type="XMLMAPPER"
-                             targetPackage="com.jing.java_example.dao" targetProject="./src/main/java">
+                             targetPackage="com.jing.java.example.dao" targetProject="./src/main/java">
             <property name="enableSubPackages" value="true" />
         </javaClientGenerator>
 

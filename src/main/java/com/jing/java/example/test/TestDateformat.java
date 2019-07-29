@@ -1,5 +1,6 @@
 package com.jing.java.example.test;
 
+import com.jing.java.example.JavaApplicationTests;
 import org.junit.Test;
 
 import java.text.ParseException;

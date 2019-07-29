@@ -1,6 +1,6 @@
 package com.jing.java.example.test;
 
-import com.jing.java.example.model.UserLuckyLottoScore;
+
 import org.junit.Test;
 
 import java.util.LinkedHashMap;
@@ -14,13 +14,13 @@ public class testReference {
 
     @Test
     public void testReference() {
-        UserLuckyLottoScore userLuckyLottoScore = new UserLuckyLottoScore();
-        userLuckyLottoScore.setCreateTime(1000L);
-        Map<String, UserLuckyLottoScore> map = new LinkedHashMap<>();
-        map.put("aa", userLuckyLottoScore);
-        userLuckyLottoScore.setCreateTime(3000L);
-        map.put("bb", userLuckyLottoScore);
-        System.out.println(Long.toString(map.get("aa").getCreateTime()));
+//        UserLuckyLottoScore userLuckyLottoScore = new UserLuckyLottoScore();
+//        userLuckyLottoScore.setCreateTime(1000L);
+//        Map<String, UserLuckyLottoScore> map = new LinkedHashMap<>();
+//        map.put("aa", userLuckyLottoScore);
+//        userLuckyLottoScore.setCreateTime(3000L);
+//        map.put("bb", userLuckyLottoScore);
+//        System.out.println(Long.toString(map.get("aa").getCreateTime()));
 
     }
 
