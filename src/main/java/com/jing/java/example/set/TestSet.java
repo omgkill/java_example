@@ -68,7 +68,8 @@ public class TestSet {
         list.sort(Comparator.comparing(User::getUserName));
         System.out.println(list.get(1).getUserName());
 
-
+        String message = String.format("user buy discount exchange over times, uid:%s, exchangeId:%s, times:%d", "333", "333444", 1);
+        System.out.println(message);
     }
 
 
