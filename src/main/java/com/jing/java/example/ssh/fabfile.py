@@ -64,9 +64,9 @@ def diff(c,p=False,r=False):
 
 @task
 def commit(c,mes):
-    cmd1='svn commit -m ' + mes
-    with c.cd(ptr_path):
-            c.run(cmd1)
+        cmd1='svn commit -m ' + "'" + mes + "'"
+        with c.cd("project/"):
+                c.run(cmd1)
 
 
 def mul_param(*args):
