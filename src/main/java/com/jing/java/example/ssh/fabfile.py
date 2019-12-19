@@ -45,28 +45,32 @@ def r(c):
 
 @task
 def diff(c,p=False,r=False):
+     cmd1='svn diff'
      if p :
         print("ptr \n")
-        c.run("cd /home/ServerPTR/ClashOfKingProject && export LC_CTYPE=en_US.UTF-8 && svn diff")
+        with c.cd(ptr_path):
+            c.run(mul_param(locale, cmd1))
+        # c.run("cd /home/ServerPTR/ClashOfKingProject && export LC_CTYPE=en_US.UTF-8 && svn diff")
      if r :
-        c.run("cd /home/ServerRelease/ClashOfKingProject && export LC_CTYPE=en_US.UTF-8 && svn diff")
+        with c.cd(release_path):
+            c.run(mul_param(locale, cmd1))
 
-#
-# @task
-# def commit(c,mes,p=False,r=False):
-#     cmd1='svn commit -m ' + mes
-#     if p :
-#         with c.cd(ptr_path):
-#             c.run(mul_param(locale, cmd1))
-#     if r :
-#         with c.cd(release_path):
-#             c.run(mul_param(locale, cmd1))
 
 @task
-def commit(c,mes):
-        cmd1='svn commit -m ' + "'" + mes + "'"
-        with c.cd("project/"):
-                c.run(cmd1)
+def commit(c,mes,p=False,r=False):
+    cmd1='svn commit -m ' +  + "'" + mes + "'"
+    if p :
+        with c.cd(ptr_path):
+            c.run(mul_param(locale, cmd1))
+    if r :
+        with c.cd(release_path):
+            c.run(mul_param(locale, cmd1))
+
+# @task
+# def commit(c,mes):
+#         cmd1='svn commit -m ' + "'" + mes + "'"
+#         with c.cd("project/"):
+#                 c.run(cmd1)
 
 
 def mul_param(*args):
