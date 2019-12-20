@@ -58,7 +58,7 @@ def diff(c,p=False,r=False):
 
 @task
 def commit(c,mes,p=False,r=False):
-    cmd1='svn commit -m ' +  + "'" + mes + "'"
+    cmd1='svn commit -m ' + "'" + mes + "'"
     if p :
         with c.cd(ptr_path):
             c.run(mul_param(locale, cmd1))
