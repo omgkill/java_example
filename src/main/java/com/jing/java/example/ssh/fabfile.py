@@ -4,15 +4,18 @@
 from fabric import Connection
 from invoke import task
 
-ptr_path='/home/ServerPTR'
-release_path='/home/ServerRelease'
-revert_cmd='svn revert -R ClashOfKingProject'
+#ptr_path='/home/ServerPTR'
+ptr_path='/mnt/hgfs/ptr'
+#release_path='/home/ServerRelease'
+release_path='/mnt/hgfs/ServerRelease'
+revert_cmd='svn revert -R -q ClashOfKingProject'
 locale='export LC_CTYPE=en_US.UTF-8'
 svnUp='svn up'
 project='ClashOfKingProject'
 trunk_path='http://svn.super-chameleon.com:8822/svn/hg/10.MVP-A/Source/trunk/Server/ClashOfKingProject'
 divide=" && "
-
+win_ptr='/mnt/hgfs/ptr/ClashOfKingProject'
+win_release='/mnt/hgfs/ServerRelease/ClashOfKingProject'
 
 
 @task
@@ -33,9 +36,16 @@ def mergesvn(c,svn):
                    n = int(s) - 1
                    c.run("{}&&svn merge -r {}:{} {}".format(locale,n,s,trunk_path))
 
-
-
 @task
+def mv(c,p=False,r=False):
+    if p :
+        c.run("rm -rf " + win_ptr + "/*")
+        c.run("cp -R -f " + ptr_path + "/" + project + "/*  " + win_ptr)
+    if r :
+        c.run("cp -R -f " + release_path + "/" + project + "/*  " + win_release)
+
+
+@task(help={'name': "svn revert"})
 def r(c):
    print(ptr_path + "\n")
   # c.run("cd " + ptr_path + " && " +locale + " && " + revert_cmd)
@@ -56,15 +66,16 @@ def diff(c,p=False,r=False):
             c.run(mul_param(locale, cmd1))
 
 
-@task
+@task(help={'name': "svn commit p:ptr,r:release"})
 def commit(c,mes,p=False,r=False):
-    cmd1='svn commit -m ' +"'" + mes + "'"
+    cmd1='svn commit -m ' +"'" + mes + "' * "
+    cmd2='cd '+ project
     if p :
         with c.cd(ptr_path):
-            c.run(mul_param(locale, cmd1))
+            c.run(mul_param(locale, cmd2, cmd1))
     if r :
         with c.cd(release_path):
-            c.run(mul_param(locale, cmd1))
+            c.run(mul_param(locale, cmd2, cmd1))
 
 # @task
 # def commit(c,mes):
