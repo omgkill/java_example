@@ -14,7 +14,8 @@ svnUp='svn up'
 project='ClashOfKingProject'
 trunk_path='http://svn.super-chameleon.com:8822/svn/hg/10.MVP-A/Source/trunk/Server/ClashOfKingProject'
 divide=" && "
-
+win_ptr='/mnt/hgfs/ptr/ClashOfKingProject'
+win_release='/mnt/hgfs/ServerRelease/ClashOfKingProject'
 
 
 @task
@@ -71,10 +72,10 @@ def commit(c,mes,p=False,r=False):
     cmd2='cd '+ project
     if p :
         with c.cd(ptr_path):
-            c.run(mul_param(locale, cmd2, cmd1))
+            c.run(mul_param(cmd2, locale, cmd1))
     if r :
         with c.cd(release_path):
-            c.run(mul_param(locale, cmd2, cmd1))
+            c.run(mul_param(cmd2, locale, cmd1))
 
 # @task
 # def commit(c,mes):
