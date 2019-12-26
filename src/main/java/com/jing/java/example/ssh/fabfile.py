@@ -35,9 +35,16 @@ def mergesvn(c,svn):
                    n = int(s) - 1
                    c.run("{}&&svn merge -r {}:{} {}".format(locale,n,s,trunk_path))
 
-
-
 @task
+def mv(c,p=False,r=False):
+    if p :
+        c.run("rm -rf " + win_ptr + "/*")
+        c.run("cp -R -f " + ptr_path + "/" + project + "/*  " + win_ptr)
+    if r :
+        c.run("cp -R -f " + release_path + "/" + project + "/*  " + win_release)
+
+
+@task(help={'name': "svn revert"})
 def r(c):
    print(ptr_path + "\n")
   # c.run("cd " + ptr_path + " && " +locale + " && " + revert_cmd)
@@ -58,17 +65,16 @@ def diff(c,p=False,r=False):
             c.run(mul_param(locale, cmd1))
 
 
-@task
+@task(help={'name': "svn commit p:ptr,r:release"})
 def commit(c,mes,p=False,r=False):
-    cmd1='svn commit -m ' + "'" + mes + "' *"
+    cmd1='svn commit -m ' +"'" + mes + "' * "
+    cmd2='cd '+ project
     if p :
         with c.cd(ptr_path):
-            with c.cd(project):
-               c.run(mul_param(locale, cmd1))
+            c.run(mul_param(locale, cmd2, cmd1))
     if r :
         with c.cd(release_path):
-           with c.cd(project):
-               c.run(mul_param(locale, cmd1))
+            c.run(mul_param(locale, cmd2, cmd1))
 
 # @task
 # def commit(c,mes):
