@@ -4,9 +4,11 @@
 from fabric import Connection
 from invoke import task
 
+# ptr_path='/mnt/hgfs/ptr'
+# release_path='/mnt/hgfs/ServerRelease'
 ptr_path='/home/ServerPTR'
 release_path='/home/ServerRelease'
-revert_cmd='svn revert -R ClashOfKingProject'
+revert_cmd='svn revert -R -q ClashOfKingProject'
 locale='export LC_CTYPE=en_US.UTF-8'
 svnUp='svn up'
 project='ClashOfKingProject'
@@ -58,13 +60,15 @@ def diff(c,p=False,r=False):
 
 @task
 def commit(c,mes,p=False,r=False):
-    cmd1='svn commit -m ' + "'" + mes + "'"
+    cmd1='svn commit -m ' + "'" + mes + "' *"
     if p :
         with c.cd(ptr_path):
-            c.run(mul_param(locale, cmd1))
+            with c.cd(project):
+               c.run(mul_param(locale, cmd1))
     if r :
         with c.cd(release_path):
-            c.run(mul_param(locale, cmd1))
+           with c.cd(project):
+               c.run(mul_param(locale, cmd1))
 
 # @task
 # def commit(c,mes):
