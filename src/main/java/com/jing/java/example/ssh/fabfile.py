@@ -4,10 +4,10 @@
 from fabric import Connection
 from invoke import task
 
-#ptr_path='/home/ServerPTR'
-ptr_path='/mnt/hgfs/ptr'
-#release_path='/home/ServerRelease'
-release_path='/mnt/hgfs/ServerRelease'
+# ptr_path='/mnt/hgfs/ptr'
+# release_path='/mnt/hgfs/ServerRelease'
+ptr_path='/home/ServerPTR'
+release_path='/home/ServerRelease'
 revert_cmd='svn revert -R -q ClashOfKingProject'
 locale='export LC_CTYPE=en_US.UTF-8'
 svnUp='svn up'
@@ -72,10 +72,10 @@ def commit(c,mes,p=False,r=False):
     cmd2='cd '+ project
     if p :
         with c.cd(ptr_path):
-            c.run(mul_param(locale, cmd2, cmd1))
+            c.run(mul_param(cmd2, locale, cmd1))
     if r :
         with c.cd(release_path):
-            c.run(mul_param(locale, cmd2, cmd1))
+            c.run(mul_param(cmd2, locale, cmd1))
 
 # @task
 # def commit(c,mes):
