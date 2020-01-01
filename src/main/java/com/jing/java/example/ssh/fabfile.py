@@ -160,3 +160,13 @@ def clean(c, docs=False, bytecode=False, extra=''):
         patterns.append(extra)
     for pattern in patterns:
         c.run("rm -rf {}".format(pattern))
+
+@task
+def move_redis(c) :
+    with open('m.txt', encoding='utf-8') as file_obj:
+        while True:
+            line = file_obj.readline()
+            if not line:
+                break
+            str = line.rstrip().lstrip()
+            c.run("redis-cli move "+ str + " 2")
