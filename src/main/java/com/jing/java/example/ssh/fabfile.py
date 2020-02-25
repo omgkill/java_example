@@ -6,76 +6,95 @@ from invoke import task
 
 # ptr_path='/mnt/hgfs/ptr'
 # release_path='/mnt/hgfs/ServerRelease'
-ptr_path='/home/ServerPTR'
-release_path='/home/ServerRelease'
-revert_cmd='svn revert -R -q ClashOfKingProject'
-locale='export LC_CTYPE=en_US.UTF-8'
-svnUp='svn up'
-project='ClashOfKingProject'
-trunk_path='http://svn.super-chameleon.com:8822/svn/hg/10.MVP-A/Source/trunk/Server/ClashOfKingProject'
-divide=" && "
-win_ptr='/mnt/hgfs/ptr/ClashOfKingProject'
-win_release='/mnt/hgfs/ServerRelease/ClashOfKingProject'
+ptr_path = '/disk4/ServerPTR'
+release_path = '/disk4/ServerRelease'
+revert_cmd = 'svn revert -R -q ClashOfKingProject'
+locale = 'export LC_CTYPE=en_US.UTF-8'
+svnUp = 'svn up'
+project = 'ClashOfKingProject'
+trunk_path = 'http://svn.super-chameleon.com:8822/svn/hg/10.MVP-A/Source/trunk/Server/ClashOfKingProject'
+divide = " && "
+win_ptr = '/mnt/hgfs/ptr/ClashOfKingProject'
+win_release = '/mnt/hgfs/ServerRelease/ClashOfKingProject'
 
 
 @task
-def m(c,svn,r=False):
-         with c.cd(ptr_path):
-            mergesvn(c,svn)
-         if r :
-             with c.cd(release_path):
-               mergesvn(c,svn)
+def m(c, svn, r=False, w=False):
+    with c.cd(ptr_path):
+        mergesvn(c, svn)
+    if r:
+        with c.cd(release_path):
+            mergesvn(c, svn)
+    if w:
+        with c.cd(win_ptr):
+            merge_win_svn(c, svn)
+        if r:
+            with c.cd(win_release):
+                merge_win_svn(c, svn)
 
 
+def mergesvn(c, svn):
+    c.run("{}&&{}".format(locale, revert_cmd))
+    c.run("{}&&{}".format(locale, svnUp))
+    with c.cd(project):
+        for s in svn.split(" "):
+            n = int(s) - 1
+            c.run("{}&&svn merge -r {}:{} {}".format(locale, n, s, trunk_path))
 
-def mergesvn(c,svn):
-     c.run("{}&&{}".format(locale,revert_cmd))
-     c.run("{}&&{}".format(locale,svnUp))
-     with c.cd(project):
-                for s in svn.split(" "):
-                   n = int(s) - 1
-                   c.run("{}&&svn merge -r {}:{} {}".format(locale,n,s,trunk_path))
+
+def merge_win_svn(c, svn):
+    c.run("{}&&{}".format(locale, svnUp))
+    with c.cd(project):
+        for s in svn.split(" "):
+            n = int(s) - 1
+            c.run("{}&&svn merge -r {}:{} {}".format(locale, n, s, trunk_path))
+
 
 @task
-def mv(c,p=False,r=False):
-    if p :
+def mv(c, p=False, r=False):
+    if p:
         c.run("rm -rf " + win_ptr + "/*")
         c.run("cp -R -f " + ptr_path + "/" + project + "/*  " + win_ptr)
-    if r :
+    if r:
         c.run("cp -R -f " + release_path + "/" + project + "/*  " + win_release)
 
 
 @task(help={'name': "svn revert"})
 def r(c):
-   print(ptr_path + "\n")
-  # c.run("cd " + ptr_path + " && " +locale + " && " + revert_cmd)
-   c.run (mul_param("cd "+ptr_path, locale,revert_cmd))
-   print("------------------------------------ \n\nrevert ServerRelease\n")
-   c.run("cd " + release_path + " && " +locale + " && " + revert_cmd)
+    print(ptr_path + "\n")
+    # c.run("cd " + ptr_path + " && " +locale + " && " + revert_cmd)
+    c.run(mul_param("cd " + ptr_path, locale, revert_cmd))
+    print("------------------------------------ \n\nrevert ServerRelease\n")
+    c.run("cd " + release_path + " && " + locale + " && " + revert_cmd)
+
 
 @task
-def diff(c,p=False,r=False):
-     cmd1='svn diff'
-     if p :
+def diff(c, p=False, r=False):
+    cmd1 = 'svn diff'
+    if p:
         print("ptr \n")
         with c.cd(ptr_path):
             c.run(mul_param(locale, cmd1))
         # c.run("cd /home/ServerPTR/ClashOfKingProject && export LC_CTYPE=en_US.UTF-8 && svn diff")
-     if r :
+    if r:
         with c.cd(release_path):
             c.run(mul_param(locale, cmd1))
 
 
 @task(help={'name': "svn commit p:ptr,r:release"})
-def commit(c,mes,p=False,r=False):
-    cmd1='svn commit -m ' +"'" + mes + "' * "
-    cmd2='cd '+ project
-    if p :
+def commit(c, mes, p=False, r=False):
+    """
+    svn commit,param mes : 注解，p : ptr, r : release
+    """
+    cmd1 = 'svn commit -m ' + "'" + mes + "' * "
+    cmd2 = 'cd ' + project
+    if p:
         with c.cd(ptr_path):
             c.run(mul_param(cmd2, locale, cmd1))
-    if r :
+    if r:
         with c.cd(release_path):
             c.run(mul_param(cmd2, locale, cmd1))
+
 
 # @task
 # def commit(c,mes):
@@ -86,15 +105,16 @@ def commit(c,mes,p=False,r=False):
 
 def mul_param(*args):
     str = ''
-    for a in args :
-        if str == '' :
+    for a in args:
+        if str == '':
             str = a
             continue
         str = str + divide + a
     return str
 
-#@task
-#def build(c):
+
+# @task
+# def build(c):
 #    print("Building!")
 
 @task
@@ -102,6 +122,7 @@ def build(c, clean=False):
     if clean:
         print("Cleaning!")
     print("Building!")
+
 
 @task
 def hi(c, name):
@@ -120,33 +141,31 @@ def hi(c, name, sex):
 def build1(c):
     c.run("ls")
 
+
 @task
 def connect(c):
-   c = Connection('192.168.231.131', port=22, user='root', connect_kwargs={'password':'123456'})
-   c.run('ls')
-
+    c = Connection('192.168.231.131', port=22, user='root', connect_kwargs={'password': '123456'})
+    c.run('ls')
 
 
 @task
 def svnup(c):
     with  c.cd("/home/me/project"):
-     c.run("ls")
-     c.run("svn up")
+        c.run("ls")
+        c.run("svn up")
+
 
 @task
-def mmmm(c,line,p=False):
-      for ll in line.split(" "):
-         with c.cd("/home/me/project/mm"):
-          c.run("svn up .")
-          a= int(ll)-1
-          b = "svn merge -r {}:{} svn://localhost/project".format(a,ll)
-          print(b)
-          if p :
-             print("bbb")
-          c.run(b)
-
-
-
+def mmmm(c, line, p=False):
+    for ll in line.split(" "):
+        with c.cd("/home/me/project/mm"):
+            c.run("svn up .")
+            a = int(ll) - 1
+            b = "svn merge -r {}:{} svn://localhost/project".format(a, ll)
+            print(b)
+            if p:
+                print("bbb")
+            c.run(b)
 
 
 @task
@@ -161,12 +180,13 @@ def clean(c, docs=False, bytecode=False, extra=''):
     for pattern in patterns:
         c.run("rm -rf {}".format(pattern))
 
+
 @task
-def move_redis(c) :
+def move_redis(c):
     with open('m.txt', encoding='utf-8') as file_obj:
         while True:
             line = file_obj.readline()
             if not line:
                 break
             str = line.rstrip().lstrip()
-            c.run("redis-cli move "+ str + " 2")
+            c.run("redis-cli move " + str + " 2")
