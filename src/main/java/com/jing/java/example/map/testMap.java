@@ -15,7 +15,30 @@ public class testMap {
      */
     @Test
     public void testMapTest(){
-//        Map<String, String> map = new HashMap<>();
+        testTreeMap();
+
+    }
+
+    /**
+     * 测试treeMap 的排序问题
+     */
+    private void testTreeMap() {
+        Map<Integer, String> testMap = new TreeMap<>();
+        testMap.put(3, "333");
+        testMap.put(1, "444");
+        testMap.put(0, "111");
+
+        testMap.values().forEach(t -> {
+            System.out.println(t);
+        });
+    }
+
+    public void test(List<String> list) {
+        list.removeIf(t -> t.equals("2"));
+    }
+
+    public void testMap() {
+        //        Map<String, String> map = new HashMap<>();
 //        map.put("1", "2");
 //        Map<String, String> map2 = new HashMap<>(map);
 //        map2.put("2","3");
@@ -44,7 +67,7 @@ public class testMap {
         List<String> list =  new ArrayList<>(map.values());
         test(list);
         list = null;
-      //  System.out.println(list);
+        //  System.out.println(list);
 
         String str = null;
         list.forEach(
@@ -52,10 +75,5 @@ public class testMap {
                     throw new NullPointerException();
                 }
         );
-
-    }
-
-    public void test(List<String> list) {
-        list.removeIf(t -> t.equals("2"));
     }
 }

@@ -1,9 +1,7 @@
 package com.jing.java.example.set;
 
 import com.jing.java.example.model.User;
-import com.jing.java.example.model.UserLuckyLottoScore;
 import org.junit.Test;
-import org.springframework.boot.autoconfigure.security.SecurityProperties;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -12,31 +10,31 @@ import java.util.stream.Collectors;
 public class TestSet {
 
 
-    SortedSet<UserLuckyLottoScore> set = Collections.synchronizedSortedSet(new TreeSet<>());
-
-    @Test
-    public void test() {
-        List<UserLuckyLottoScore> orList = new ArrayList<>();
-        Map<String, UserLuckyLottoScore> map = new HashMap<>();
-        for (int i = 0; i< 20; i++) {
-            UserLuckyLottoScore s = new UserLuckyLottoScore();
-            s.setType(i);
-            orList.add(s);
-            map.put("" + i, s);
-        }
-
-        Collections.sort(orList);
-        for(UserLuckyLottoScore us : orList) {
-            set.add(us);
-        }
-
-        UserLuckyLottoScore score = map.get(1 +"");
-        score.setType(2222);
-        set.add(score);
-        System.out.println(set);
-
-
-    }
+//    SortedSet<UserLuckyLottoScore> set = Collections.synchronizedSortedSet(new TreeSet<>());
+//
+//    @Test
+//    public void test() {
+//        List<UserLuckyLottoScore> orList = new ArrayList<>();
+//        Map<String, UserLuckyLottoScore> map = new HashMap<>();
+//        for (int i = 0; i< 20; i++) {
+//            UserLuckyLottoScore s = new UserLuckyLottoScore();
+//            s.setType(i);
+//            orList.add(s);
+//            map.put("" + i, s);
+//        }
+//
+//        Collections.sort(orList);
+//        for(UserLuckyLottoScore us : orList) {
+//            set.add(us);
+//        }
+//
+//        UserLuckyLottoScore score = map.get(1 +"");
+//        score.setType(2222);
+//        set.add(score);
+//        System.out.println(set);
+//
+//
+//    }
 
 
     /**

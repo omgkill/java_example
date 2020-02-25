@@ -1,6 +1,6 @@
  # kindle 使用技巧分享
  
-  ![avatar](../image/1.jpeg)
+  ![avatar](image/1.jpeg)
   <br>
     <br>
       <br>
@@ -52,7 +52,7 @@ kindle是亚马逊一个电子阅读器品牌，目前已经有4个系列。融�
  地址 ：https://www.douban.com/group/topic/31690870/?ref=t
  >词典很重要，一个好的词典让你对这个世界多一份理解
  - 如何装入词典
- ![avatar](../image/menu.saveimg.savepath20181226234927.jpg)
+ ![avatar](image/menu.saveimg.savepath20181226234927.jpg)
  
  ## kindle一些问题的解决方法
  1. 刷新慢

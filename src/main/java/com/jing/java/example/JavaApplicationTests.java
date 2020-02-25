@@ -1,27 +1,50 @@
 package com.jing.java.example;
 
-import com.jing.java.example.mapper.UserLuckyLottoScoreMapper;
-import com.jing.java.example.model.User;
-import com.jing.java.example.model.UserLuckyLottoScore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mybatis.spring.annotation.MapperScan;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import javax.annotation.Resource;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.ScheduledThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-@MapperScan(basePackages = "com.jing.java.example.mapper")
 public class JavaApplicationTests {
 
-    @Resource
-    UserLuckyLottoScoreMapper userLuckyLottoScoreMapper;
+//    @Resource
+//    UserLuckyLottoScoreMapper userLuckyLottoScoreMapper;
+
+    Logger logger = LoggerFactory.getLogger(JavaApplicationTests.class);
+
+    ExecutorService executorService = new ScheduledThreadPoolExecutor(10000);
+
+    @Test
+    public void testCase1() {
+
+        executorService.execute(() -> {
+            try {
+                Thread.sleep(100000000);
+            } catch (Exception e) {
+
+            }
+            System.out.println("3333333333333333");
+        });
+
+        logger.error("333333333333333333");
+        System.out.println("3333333333333333");
+        while(!executorService.isShutdown()) {
+            try {
+                executorService.awaitTermination(100, TimeUnit.MINUTES);
+
+            } catch (Exception e) {
+
+            }
+        }
+    }
 
     @Test
     public void contextLoads() {
@@ -112,17 +135,17 @@ public class JavaApplicationTests {
 //        System.out.println(aa);
     }
 
-
-    public void testInsert(String id) {
-        userLuckyLottoScoreMapper.deleteByPrimaryKey(id, "1");
-        UserLuckyLottoScore userInfo = new UserLuckyLottoScore();
-        userInfo.setType(1);
-        userInfo.setCreateTime(0L);
-        userInfo.setUid(id);
-        userInfo.setRoundId("1");
-        userInfo.setDrawInfo("11111");
-        userLuckyLottoScoreMapper.insert(userInfo);
-    }
+//
+//    public void testInsert(String id) {
+//        userLuckyLottoScoreMapper.deleteByPrimaryKey(id, "1");
+//        UserLuckyLottoScore userInfo = new UserLuckyLottoScore();
+//        userInfo.setType(1);
+//        userInfo.setCreateTime(0L);
+//        userInfo.setUid(id);
+//        userInfo.setRoundId("1");
+//        userInfo.setDrawInfo("11111");
+//        userLuckyLottoScoreMapper.insert(userInfo);
+//    }
 
 
 
