@@ -8,6 +8,7 @@ from invoke import task
 # release_path='/mnt/hgfs/ServerRelease'
 ptr_path = '/disk4/ServerPTR'
 release_path = '/disk4/ServerRelease'
+commit_release_path = '/disk4/ServerRelease/ClashOfKingProject/cok-game'
 revert_cmd = 'svn revert -R -q ClashOfKingProject'
 locale = 'export LC_CTYPE=en_US.UTF-8'
 svnUp = 'svn up'
@@ -81,23 +82,24 @@ def diff(c, p=False, r=False):
             c.run(mul_param(locale, cmd1))
 
 
-@task(help={'name': "svn commit p:ptr,r:release"})
+@task
 def commit(c, mes, p=False, r=False):
-    """
-    svn commit,param mes : 注解，p : ptr, r : release
-    """
+    print ("2222")
     cmd1 = 'svn commit -m ' + "'" + mes + "' * "
     cmd2 = 'cd ' + project
+    print (cmd2)
     if p:
         with c.cd(ptr_path):
+            cmd_str = mul_param(cmd2, locale, cmd1)
+            print (cmd_str)
             c.run(mul_param(cmd2, locale, cmd1))
     if r:
-        with c.cd(release_path):
+        with c.cd(commit_release_path):
             c.run(mul_param(cmd2, locale, cmd1))
 
 
 @task
-def deploy(c, s,):
+def deploy(c, s):
     """
     deploy project, s : 几服
     """
@@ -141,11 +143,11 @@ def deploy_or_refresh(c, s, is_refresh):
     c.run("/root/bw_hg/" + path)
 
 
-@task
-def commit(c, mes):
-    cmd1 = 'svn commit -m ' + "'" + mes + "'"
-    with c.cd("project/"):
-        c.run(cmd1)
+# @task
+# def commit(c, mes):
+#     cmd1 = 'svn commit -m ' + "'" + mes + "'"
+#     with c.cd("project/"):
+#         c.run(cmd1)
 
 
 def mul_param(*args):
