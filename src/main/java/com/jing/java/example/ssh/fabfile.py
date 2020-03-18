@@ -6,16 +6,17 @@ from invoke import task
 
 # ptr_path='/mnt/hgfs/ptr'
 # release_path='/mnt/hgfs/ServerRelease'
-ptr_path='/home/ServerPTR'
-release_path='/home/ServerRelease'
-revert_cmd='svn revert -R -q ClashOfKingProject'
-locale='export LC_CTYPE=en_US.UTF-8'
-svnUp='svn up'
-project='ClashOfKingProject'
-trunk_path='http://svn.super-chameleon.com:8822/svn/hg/10.MVP-A/Source/trunk/Server/ClashOfKingProject'
-divide=" && "
-win_ptr='/mnt/hgfs/ptr/ClashOfKingProject'
-win_release='/mnt/hgfs/ServerRelease/ClashOfKingProject'
+ptr_path = '/disk4/ServerPTR'
+release_path = '/disk4/ServerRelease'
+commit_release_path = '/disk4/ServerRelease/ClashOfKingProject/cok-game'
+revert_cmd = 'svn revert -R -q ClashOfKingProject'
+locale = 'export LC_CTYPE=en_US.UTF-8'
+svnUp = 'svn up'
+project = 'ClashOfKingProject'
+trunk_path = 'http://svn.super-chameleon.com:8822/svn/hg/10.MVP-A/Source/trunk/Server/ClashOfKingProject'
+divide = " && "
+win_ptr = '/mnt/hgfs/ptr/ClashOfKingProject'
+win_release = '/mnt/hgfs/ServerRelease/ClashOfKingProject'
 
 
 @task
@@ -77,6 +78,52 @@ def commit(c,mes,p=False,r=False):
         with c.cd(release_path):
             c.run(mul_param(cmd2, locale, cmd1))
 
+
+@task
+def deploy(c, s):
+    """
+    deploy project, s : 几服
+    """
+    print (s)
+    deploy_or_refresh(c, s, 'false')
+
+
+@task
+def refresh(c, s):
+    """
+    deploy project, s : 几服
+    """
+    print (s)
+    deploy_or_refresh(c, s, 'true')
+
+
+def deploy_or_refresh(c, s, is_refresh):
+    ip = ""
+    pw = '1q2w3e4r5t'
+    path = "deploy_aoeii.sh"
+    if is_refresh == 'true':
+        path = "refresh_xml"
+    if s == '11':
+        c.run("/root/bw_hg/deploy_aoeii.sh")
+        if is_refresh == 'true':
+            c.run("/root/bw_hg/refresh_xml.sh")
+        return 0
+    if s == '1':
+        ip = "10.0.3.187"
+        path = "restart.sh"
+        if is_refresh == 'true':
+            path = "refresh_xml"
+    if s == '8':
+        ip = "10.0.3.191"
+    if s == '997':
+        ip = "10.0.3.189"
+    if s == '998':
+        ip = "10.0.3.189"
+    print ("----" + s)
+    c = Connection(ip, port=22, user='root', connect_kwargs={'password': pw})
+    c.run("/root/bw_hg/" + path)
+
+
 # @task
 # def commit(c,mes):
 #         cmd1='svn commit -m ' + "'" + mes + "'"
@@ -98,22 +145,17 @@ def mul_param(*args):
 #    print("Building!")
 
 @task
-def build(c, clean=False):
-    if clean:
-        print("Cleaning!")
-    print("Building!")
-
-@task
-def hi(c, name):
-    print("Hi {}!".format(name))
+def up(c, r=False):
+    with c.cd(ptr_path):
+        svnuppp(c)
+    if r:
+        with c.cd(release_path):
+            svnuppp(c)
 
 
-@task(help={'name': "Name of the person to say hi to."})
-def hi(c, name, sex):
-    """
-    Say hi to someone.
-    """
-    print("Hi {}!, {}".format(name, sex))
+def svnuppp(c):
+    c.run("{}&&{}".format(locale, revert_cmd))
+    c.run("{}&&{}".format(locale, svnUp))
 
 
 @task
@@ -145,6 +187,7 @@ def mmmm(c,line,p=False):
              print("bbb")
           c.run(b)
 
+
 @task
 def redis_get(c, line):
     c = Connection('hg-26.super-chameleon.com', port=22, user='root', connect_kwargs={'password':'H2KhsbH2slqU1'})
@@ -152,11 +195,6 @@ def redis_get(c, line):
         str = "redis-cli -h 10.81.81.252 -c -p 6379 hget alliance_arena_22_" + ll + " round_id"
         print(ll + "-")
         c.run(str)
-
-
-
-
-
 
 
 

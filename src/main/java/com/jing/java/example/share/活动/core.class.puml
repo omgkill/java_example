@@ -1,0 +1,126 @@
+@startuml
+
+
+package cok {
+'    class ActivityInfo
+'    class DonateDiscountEngine
+'    class PvpInstanceCoreManager
+'    class PvpInstancePlanetCore
+'    enum PvpInstanceType
+'    class DonateDiscountPanelHandle
+
+'    package roll {
+'        interface IRollStrategy
+'        class AbstractRollRequest
+'        class AbstractUserRollRequest
+'        class PowerMatchRollRequest
+'        class AbstractRollResponse
+'        class UserRollResponse
+'        class SimpleLinearStrategy
+'        class SimpleUserRollRequest
+'    }
+'
+'    package action {
+'        interface Runnable
+'        class AbstractPhaseAction
+'        class StartAction
+'        class EndAction
+'        class TerminateAction
+'        class BurnAction
+'    }
+
+
+    package handlers.requesthandlers.activity.donatediscount {
+        class DonateDiscountPanelHandle
+        class DonateDiscountDonateHandle
+    }
+
+    package gameengine {
+
+        package activity.donatediscount {
+                            class DonateDiscountEngine
+                            class DonateDiscountManager
+        }
+        package pay {
+                        class PaymentUtil
+                    }
+        package score {
+                class ActivityInfo
+        }
+
+    }
+    package puredb.model {
+         class UserProfile
+         class UserDonateDiscount
+    }
+    package exchange {
+        class GoldExchangeInfo
+    }
+    package utils.xml.parser {
+        class DonateDiscountParser
+    }
+
+}
+'strategy'
+class ActivityInfo {
+    -void getLoginInfo(UserProfile userProfile, ISFSObject outData)
+}
+class DonateDiscountEngine{
+    +boolean show(UserProfile userProfile, ISFSObject rowData)
+    +ISFSObject getPanelInfo(UserProfile userProfile)
+    +donateItem(UserProfile userProfile, ISFSObject param)
+    +void afterExchange(UserProfile userProfile, String eId, Map<String, String> map)
+    +DonateDiscountConfig getConfig()
+}
+
+class DonateDiscountManager {
+    +UserDonateDiscount getUserInfo(String uid, String scheduleId)
+    +void removeUserCache(String uid)
+}
+
+
+'request'
+class DonateDiscountPanelHandle {
+      +ISFSObject handleRequest(User user, ISFSObject params)
+      +boolean isSynchronizeUserRequest()
+}
+'request'
+class DonateDiscountDonateHandle {
+      +ISFSObject handleRequest(User user, ISFSObject params)
+      +boolean isSynchronizeUserRequest()
+}
+class GoldExchangeInfo {
+    +ISFSObject exchange(UserProfile userProfile, Map<String, String> exchangeConfigMap...)
+}
+
+class PaymentUtil {
+    ISFSObject sendGoods()
+}
+
+class DonateDiscountParser {
+    +DonateDiscountConfig getDonateDiscountConfig()
+}
+
+class UserProfile {
+    +void insertCrossDB(SqlSession session, int type)
+}
+
+class UserDonateDiscount {
+    +UserDonateDiscount getByUid(String uid)
+    +void insertCross(String uid, SqlSession session)
+    Map<String,UserDonateDiscount> userMap
+}
+
+UserProfile -> UserDonateDiscount
+DonateDiscountManager - DonateDiscountEngine
+DonateDiscountPanelHandle --> DonateDiscountEngine
+DonateDiscountDonateHandle --> DonateDiscountEngine
+UserDonateDiscount --o DonateDiscountManager
+DonateDiscountEngine <-- ActivityInfo
+
+PaymentUtil --> GoldExchangeInfo
+DonateDiscountEngine <----- GoldExchangeInfo
+'DonateDiscountEngine -->
+DonateDiscountParser --up-> DonateDiscountEngine
+
+@enduml
