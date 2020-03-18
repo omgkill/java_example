@@ -145,6 +145,17 @@ def mmmm(c,line,p=False):
              print("bbb")
           c.run(b)
 
+@task
+def redis_get(c, line):
+    c = Connection('hg-26.super-chameleon.com', port=22, user='root', connect_kwargs={'password':'H2KhsbH2slqU1'})
+    for ll in line.split(","):
+        str = "redis-cli -h 10.81.81.252 -c -p 6379 hget alliance_arena_22_" + ll + " round_id"
+        print(ll + "-")
+        c.run(str)
+
+
+
+
 
 
 
