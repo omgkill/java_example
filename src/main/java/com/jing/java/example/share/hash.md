@@ -11,7 +11,7 @@
   ```
   -  byte、char、short、int  
   ```
-      hash = int ( value )
+     hash = int ( value )
   ```
   -  long 
   ```
@@ -42,7 +42,7 @@
  ```
  public class User{
      private int age;
-     private String name;
+      private String name;
      public int hashCode() {
          int result = 17;
          result = 31 * result + age;

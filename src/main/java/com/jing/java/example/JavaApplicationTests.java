@@ -7,9 +7,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.ScheduledThreadPoolExecutor;
-import java.util.concurrent.TimeUnit;
+import javax.annotation.Resource;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.concurrent.ScheduledFuture;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -20,30 +21,30 @@ public class JavaApplicationTests {
 
     Logger logger = LoggerFactory.getLogger(JavaApplicationTests.class);
 
-    ExecutorService executorService = new ScheduledThreadPoolExecutor(10000);
+//    ExecutorService executorService = new ScheduledThreadPoolExecutor(10000);
 
     @Test
     public void testCase1() {
 
-        executorService.execute(() -> {
-            try {
-                Thread.sleep(100000000);
-            } catch (Exception e) {
-
-            }
-            System.out.println("3333333333333333");
-        });
-
-        logger.error("333333333333333333");
-        System.out.println("3333333333333333");
-        while(!executorService.isShutdown()) {
-            try {
-                executorService.awaitTermination(100, TimeUnit.MINUTES);
-
-            } catch (Exception e) {
-
-            }
-        }
+//        executorService.execute(() -> {
+//            try {
+//                Thread.sleep(100000000);
+//            } catch (Exception e) {
+//
+//            }
+//            System.out.println("3333333333333333");
+//        });
+//
+//        logger.error("333333333333333333");
+//        System.out.println("3333333333333333");
+//        while(!executorService.isShutdown()) {
+//            try {
+//                executorService.awaitTermination(100, TimeUnit.MINUTES);
+//
+//            } catch (Exception e) {
+//
+//            }
+//        }
     }
 
     @Test
@@ -134,6 +135,23 @@ public class JavaApplicationTests {
 //        aa = aa.replaceAll(" ", "");
 //        System.out.println(aa);
     }
+
+
+    public void testInsert(String id) {
+//        userLuckyLottoScoreMapper.deleteByPrimaryKey(id, "1");
+//        UserLuckyLottoScore userInfo = new UserLuckyLottoScore();
+//        userInfo.setType(1);
+//        userInfo.setCreateTime(0L);
+//        userInfo.setUid(id);
+//        userInfo.setRoundId("1");
+//        userInfo.setDrawInfo("11111");
+//        userLuckyLottoScoreMapper.insert(userInfo);
+
+
+
+    }
+
+
 
 //
 //    public void testInsert(String id) {

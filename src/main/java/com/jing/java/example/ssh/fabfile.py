@@ -74,9 +74,9 @@ def commit(c,mes,p=False,r=False):
     if p :
         with c.cd(ptr_path):
             c.run(mul_param(cmd2, locale, cmd1))
-    if r :
-        with c.cd(release_path):
-            c.run(mul_param(cmd2, locale, cmd1))
+    if r:
+        with c.cd(commit_release_path):
+            c.run(mul_param(locale, cmd1))
 
 
 @task
@@ -145,17 +145,22 @@ def mul_param(*args):
 #    print("Building!")
 
 @task
-def up(c, r=False):
-    with c.cd(ptr_path):
-        svnuppp(c)
-    if r:
-        with c.cd(release_path):
-            svnuppp(c)
+def build(c, clean=False):
+    if clean:
+        print("Cleaning!")
+    print("Building!")
+
+@task
+def hi(c, name):
+    print("Hi {}!".format(name))
 
 
-def svnuppp(c):
-    c.run("{}&&{}".format(locale, revert_cmd))
-    c.run("{}&&{}".format(locale, svnUp))
+@task(help={'name': "Name of the person to say hi to."})
+def hi(c, name, sex):
+    """
+    Say hi to someone.
+    """
+    print("Hi {}!, {}".format(name, sex))
 
 
 @task
@@ -187,7 +192,6 @@ def mmmm(c,line,p=False):
              print("bbb")
           c.run(b)
 
-
 @task
 def redis_get(c, line):
     c = Connection('hg-26.super-chameleon.com', port=22, user='root', connect_kwargs={'password':'H2KhsbH2slqU1'})
@@ -195,6 +199,11 @@ def redis_get(c, line):
         str = "redis-cli -h 10.81.81.252 -c -p 6379 hget alliance_arena_22_" + ll + " round_id"
         print(ll + "-")
         c.run(str)
+
+
+
+
+
 
 
 
