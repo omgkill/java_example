@@ -5,7 +5,9 @@ import com.jing.java.example.model.UserTask;
 import sun.net.www.protocol.file.FileURLConnection;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -32,7 +34,7 @@ public class FutureTest {
                 try {
                     Thread.sleep(1000);
                 } catch (InterruptedException e) {
-                    e.printStackTrace();
+                    System.out.println(e.toString());
                 }
 //                UserTask userTask = user.getTask(kk);
 //                userTask.getUid();
@@ -75,7 +77,14 @@ public class FutureTest {
 ////        future.cancel(true);
         Thread.sleep(5000L);
         System.out.println("任务运行时间");
+        Set<String> ddSet= new HashSet<>();
+        ddSet.add("1");
 
+        for(int i =0; i < 100; i++) {
+            String str = i + "";
+            ddSet.add(str);
+            ddSet.remove(str);
+        }
     }
 
 
