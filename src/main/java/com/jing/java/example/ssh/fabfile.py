@@ -205,16 +205,16 @@ def mmmm(c,line,p=False):
 
 
 @task
-def redis_get(c, line):
-     dd = ''
+def redis_exist(c, line):
+     c = Connection('hg-1002.super-chameleon.com', port=22, user='root', connect_kwargs={'password':'H2KhsbH2slqU1'})
      for ll in line.split(";"):
-        str = "redis-cli  exists UI_" + ll
+        str = "redis-cli -h 10.81.81.66 -p 6379 exists UI_" + ll
         d = c.run(str, hide=True)
         ret = d.stdout.splitlines()[-1].strip()
-       # print(d.stdout.splitlines()) 这是一个数组
-        if ret == '1': # '!' 必须有引号，才行
-            dd = ll
-     print(dd)
+       # print(d.stdout.splitlines()) #这是一个数组
+        if ret == '0': # '!' 必须有引号，才行
+            print(ll)
+
 
 
 @task
