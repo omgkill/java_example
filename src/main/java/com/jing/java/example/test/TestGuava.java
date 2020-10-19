@@ -34,4 +34,12 @@ public class TestGuava {
                         }
                     }
             );
+
+    public void testGet() {
+        try {
+            cache.get("dd");
+        } catch (Exception e) {
+
+        }
+    }
 }

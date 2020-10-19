@@ -41,9 +41,12 @@ public class ArraysTest {
 //        array[2] = statusEnum.no_collect.value();
 //        System.out.println(Arrays.toString(array2));
 
-        List<Integer> list = new ArrayList<>();
-
-        int sum= list.stream().mapToInt(s-> s).sum();
-        System.out.println(sum);
+//        System.exit(0);
+        Runtime.getRuntime().exit(0);
+//        List<Integer> list = new ArrayList<>();
+//
+//        int sum= list.stream().mapToInt(s-> s).sum();
+//        System.out.println(sum);
+        System.out.println("2222222222222");
     }
 }
