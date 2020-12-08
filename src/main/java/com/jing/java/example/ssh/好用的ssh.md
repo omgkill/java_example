@@ -5,3 +5,5 @@
           - -i  keys 是好多个，xargs 会把数据转换成一行，也就是 redis-cli -h ... del xxxx xxx xxx. 加上-i 就是一个就是一行
                 - 例如redis-cli -h ... del xxxx   redis-cli -h ... del xxxx
           - -t 表示先打印命令，然后再执行。
+ 3. 示例
+    - cat mm.txt | xargs -i -t redis-cli -c -h 10.0.3.190 -p 6383 rpush  tl_ga_116069760410001 {}

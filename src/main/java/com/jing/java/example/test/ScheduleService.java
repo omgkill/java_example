@@ -13,12 +13,17 @@ import java.util.concurrent.ScheduledThreadPoolExecutor;
 public class ScheduleService {
     Logger logger = LoggerFactory.getLogger(ScheduleService.class);
 
-    ExecutorService executorService = new ScheduledThreadPoolExecutor(10000);
+    public static ExecutorService executorService = new ScheduledThreadPoolExecutor(10000);
 
 
     public void testCase1() {
         executorService.execute(() -> {
             logger.info(ThreadLocalTest.getInstance().getThreadLocal().get());
         });
+    }
+
+
+    public static void addRunnable(Runnable runnable) {
+        executorService.execute(runnable);
     }
 }

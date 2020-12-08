@@ -12,6 +12,7 @@ public class Reflect {
     @Test
     public void testRe() {
 
+        System.out.println(Integer.toBinaryString(Integer.MAX_VALUE));
         final int MAXIMUM_CAPACITY = 1 << 30;
         int n = 17 - 1;
         n |= n >>> 1;
