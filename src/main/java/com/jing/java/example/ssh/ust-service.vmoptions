@@ -1,0 +1,46 @@
+# Enter one VM parameter per line
+# To include another file, uncomment the following line and enter the file path:
+# -include-options [path to other .vmoption file]
+-classpath/p ./:lib/*:lib/Jetty/*:extensions/__lib__/*
+-Dfile.encoding=UTF-8
+-Djava.util.Arrays.useLegacyMergeSort=ture
+
+-Dserialize.blacklist.enable=false
+-Dinvoke.baggage.enable=false
+
+-XX:+HeapDumpOnOutOfMemoryError
+
+# -Xms10g
+# -Xmx10g
+# -Xmn2g
+
+-XX:+UseG1GC
+-XX:MaxGCPauseMillis=150
+-XX:ParallelGCThreads=8
+-XX:ConcGCThreads=2
+-XX:InitiatingHeapOccupancyPercent=45
+-XX:+UseStringDeduplication
+-XX:GCTimeRatio=4
+-XX:MaxTenuringThreshold=2
+-XX:SurvivorRatio=6
+
+-XX:+PrintGCDetails
+-XX:+PrintGCDateStamps
+-XX:+PrintGCTimeStamps
+-XX:+PrintTenuringDistribution
+-XX:+PrintGCApplicationStoppedTime
+-XX:+PrintStringTableStatistics
+-XX:+PrintCommandLineFlags
+-XX:+PrintFlagsFinal
+-XX:-OmitStackTraceInFastThrow
+-XX:StringTableSize=200003
+-Xrunjdwp:transport=dt_socket,address=8788,server=y,suspend=n
+
+-XX:+DisableExplicitGC
+
+-XX:+UnlockDiagnosticVMOptions
+-XX:+G1SummarizeRSetStats
+-XX:G1SummarizeRSetStatsPeriod=1
+
+-XX:G1MixedGCCountTarget=16
+-XX:G1RSetRegionEntries=1024
