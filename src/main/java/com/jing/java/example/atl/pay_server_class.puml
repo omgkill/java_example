@@ -1,0 +1,122 @@
+@startuml
+
+interface IPay {
+void analysisParams()
+boolean verifyPurchase()
+default generateOrderInfo();
+}
+
+interface ICallBackPay {
+boolean isSendGoodsSuccess(Function f);
+void callBackPaySite();
+}
+
+
+class GooglePay {
+analysisParams()
+verifyPurchase()
+}
+
+class IosPay {
+analysisParams()
+verifyPurchase()
+}
+
+class OtherChinaPay{
+void analysisParams()
+boolean verifyPurchase()
+isSendGoodsSuccess(Function f)
+callBackPaySite()
+}
+
+
+interface IPayScribe {
+void analysisParams()
+boolean verifyPurchase()
+boolean isSendGoodsSuccess(Function f);
+void callBackPaySite();
+}
+
+class GooglePayScribe {
+void analysisParams()
+boolean verifyPurchase()
+boolean isSendGoodsSuccess(Function f);
+void callBackPaySite();
+}
+
+IPayScribe <|-- GooglePayScribe
+
+
+
+
+
+class VPayLaunch {
+    VChatLauncher build(appId, openPayTypeSet, openPayScribeTypeSet);
+    boolean isAuthGoogle(GooglePayParam);
+    boolean isAuthIos(iosPayParam);
+    void scribeHandle(IosPayScribeParam);
+}
+interface IPayParam {
+}
+
+class GooglePayParam {
+build();
+}
+class IosPayParam {
+build();
+}
+IPay <|-- IosPay
+IPay <|-- GooglePay
+ICallBackPay <|-- OtherChinaPay
+
+VPayLaunch *-- IPay
+VPayLaunch *-- IPayParam
+VPayLaunch *-- ICallBackPay
+IPay <|- ICallBackPay
+
+IPayParam <|-- GooglePayParam
+IPayParam <|-- IosPayParam
+
+VPayLaunch *-- IPayScribe
+
+
+
+enum PayType {
+GOOGLE_PAY,
+IOS_PAY
+}
+enum PayScribeType {
+GOOGLE
+}
+
+
+
+
+
+
+
+
+'abstract class AbstractList
+'abstract AbstractCollection
+'interface List
+'interface Collection
+'
+'List <|-- AbstractList
+'Collection <|-- AbstractCollection
+'
+'Collection <|- List
+'AbstractCollection <|- AbstractList
+'AbstractList <|-- ArrayList
+'
+'class ArrayList {
+'Object[] elementData
+'size()
+'}
+'
+'enum TimeUnit {
+'DAYS
+'HOURS
+'MINUTES
+'}
+
+@enduml

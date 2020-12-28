@@ -1,0 +1,78 @@
+@startuml
+
+interface IPayment {
+void analysisParams()
+boolean verifyPurchase()
+void callBackOnPay() throw PayException;
+void callBackOnSubscribe() throw PayException;
+}
+
+class GooglePayment {
+}
+
+class IosPayment {
+}
+
+class VPayLauncher {
+
+    VPayLauncher buildGooglePlayPay(gooleplayToken, saltkey, ...);
+    VPayLauncher buildIOSPay(iosToken, saltkey, ...);
+    VPayLauncher buildXXXPay(XXXToken, saltkey, ...);
+
+    boolean authGooglePlayPayAsync(String param, Consumer<> callback)
+    boolean authIOSPayAsync(String param, Consumer<> callback)
+    boolean authXXXPayAsync(String param, Consumer<> callback)
+
+
+    boolean callBackOnGooglePaySubscribeAsync(String param, Consumer<> callback)
+    boolean CallbackOnXXXPayAsync(String param, Consumer<> callback)
+}
+
+
+
+interface IPaymentParam {
+}
+
+class GooglePayParam {
+}
+class IosPayParam {
+}
+
+IPayment <|-- IosPayment
+IPayment <|-- GooglePayment
+IPayment <|-- XXXPayment
+
+VPayLauncher *-- IPayment
+VPayLauncher *-- IPaymentParam
+
+IPaymentParam <|-- GooglePayParam
+IPaymentParam <|-- IosPayParam
+IPaymentParam <|-- XXXPayParam
+
+note right of VPayLauncher::buildGooglePlayPay
+  "服务器启动，通过buildXXX加载支付类型"
+end note
+
+note right of VPayLauncher::authGooglePlayPay
+  "authXXX客户端支付回调验证"
+end note
+
+note right of VPayLauncher::callBackOnGooglePaySubscribeAsync
+  "支付平台回调"
+end note
+
+
+note right of VPayLauncher::CallbackOnXXXPayAsync
+  "订阅支付平台回调"
+end note
+
+note left of IPayment::analysisParams
+  "参数解析"
+end note
+
+note left of IPayment::verifyPurchase
+  "签名验证"
+end note
+
+
+@enduml

@@ -2,6 +2,7 @@ package com.jing.java.example.hash;
 
 import org.junit.Test;
 
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -18,5 +19,9 @@ public class HashMapTest {
         System.out.println(num2 >>> 4);
         System.out.println(num2 >> 4);
         System.out.println(Integer.toBinaryString(num2));
+
+
+        float mm  = 4294967294f;
+        System.out.println(BigDecimal.valueOf(mm));
     }
 }

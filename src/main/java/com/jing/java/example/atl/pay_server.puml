@@ -1,0 +1,81 @@
+@startuml
+':Main Admin: as Admin
+'(Use the application) as (Use)
+
+rectangle gameServer_start {
+    gameServer --|> (注册支付方式) : extends
+    gameServer --|> (注册发货) : extends
+}
+
+rectangle pay {
+gameClient -- (支付)
+(支付) <|-- (子类支付) : extends
+(子类支付) <.- (参数解析) : include
+(子类支付) <.- (参数验证) : include
+(子类支付) <.- (调用game发货) : include
+支付平台 -- (支付)
+}
+
+rectangle subscribe {
+
+
+   订阅支付平台  --> (支付) : start
+   (调用game发货) --> vPayServer
+   vPayServer -> (回调)
+   (回调) -> 订阅支付平台 : end
+}
+
+'vPayServer2 --> (接收平台支付成功请求)
+'vPayServer2 --> (参数验证)
+
+
+' (注册支付方式) -- gameServer
+' vPayServer1 --  (注册支付方式)
+' (注册发货实现) --  gameServer
+' vPayServer1 <--  (注册发货实现)
+'
+'note "服务器启动" as N2
+'(gameServer) - N2
+'
+''vPayServer2 --> (参数解析)
+''vPayServer2 --> (参数验证)
+''vPayServer2 --> (发货)
+'
+'
+'vPayServer2 --> (参数解析)
+'vPayServer2 --> (参数验证)
+'vPayServer2 --> (调用gameServer发货)
+'
+'
+'
+'
+'vPayServer3 <-- (接收支付成功请求)
+'vPayServer3 --> (调用gameServer发货1)
+
+
+
+
+
+'rectangle checkout {
+'  customer -- (checkout)
+'  (checkout) .> (payment) : include
+'  (help) .> (checkout) : extends
+'  (checkout) -- clerk
+'}
+
+
+'User --> (Use)
+
+'Admin ---> (Use)
+
+'note right of Admin : This is an example.
+'
+'note right of (Use)
+'A note can also
+'be on several lines
+'end note
+
+note "成功发货" as N2
+(调用game发货) .. N2
+N2 . (vPayServer)
+@enduml
