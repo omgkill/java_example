@@ -1,14 +1,25 @@
 
  # synchronized 关键字
+
   - 特性
+
     - 可重入
+
     - jdk1.6以后，性能已经提升很多了，和reentrantLock 持平
+
  - 分析
+
     - synchronized 会在同步块分别形成monitorenter 和 monitorexit 两个字节码指令， 这两个字节码都需要一个reference类型的参数来指明要锁定和解锁的对象
+
     - synchronized是重量级操作，状态转换消耗的时间有可能比用户时间还要长
+
     - 适应性自旋（Adaptive Spinning）、锁消除（Lock Elimination)、锁粗化（Lock Coarsening）、轻量级（LightWeight Locking） 和偏向锁（Biased Locking）等
+
     - 内存模型
+
     -
+
+
  - JAVA内存模型
       - 线程、主内存、工作内存三者交互关系
       -   ![img.png](img.png)
@@ -51,7 +62,7 @@
 
   ## 锁优化
     - 适应性自旋（Adaptive Spinning）、锁消除（Lock Elimination)、锁粗化（Lock Coarsening）、轻量级（LightWeight Locking） 和偏向锁（Biased Locking）等
-      - 适应性自旋
+      - 自旋
         - 锁定状态只持续了很短的时间
         - 线程空循环
         - 自适应的自旋锁
@@ -69,9 +80,13 @@
             return stooges.toString();
         ```
       - 轻量级锁
+        - 对象头的存储
+          ![img_7.png](img_7.png)
         - 对象头由两部分信息，对象自身的运行时数据，Mark world; 指向方法区对象类型数据的指针
+      - 当两个做竞争，如何确保正在执行的线程是怎么修改的
      
-
+      - 总结
+        ![img_4.png](img_4.png)
    
   - syn 地使用
    - 对象内地多个方法加，synchronized，就会互相阻塞，可以使用同步块
@@ -87,3 +102,8 @@
     - 锁分段
     - 使用原子类, AtomicInteger
     - 通常，对象分配操作的开销比同步的开销更低
+    
+
+ps :
+    ![img_5.png](img_5.png)
+    ![img_6.png](img_6.png)
