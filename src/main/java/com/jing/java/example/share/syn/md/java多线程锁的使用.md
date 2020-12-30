@@ -39,8 +39,6 @@
 - 释放锁
 - 执行monitorexit，锁计数器减1
 
-    - 内存栅栏，是缓存无效，刷新硬件地写缓冲，以及停止执行管道，无法排序优化
-
   ## 锁优化
     - 适应性自旋（Adaptive Spinning）、锁消除（Lock Elimination)、锁粗化（Lock Coarsening）、轻量级（LightWeight Locking） 和偏向锁（Biased Locking）等
       - 自旋
